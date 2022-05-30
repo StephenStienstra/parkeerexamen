@@ -26,6 +26,7 @@
                 <form method="POST" action="/home">@csrf<div id="map"></div></form>
 
                 <script src="{{ asset('js/map.js') }}"></script>
+                {{$numberboard[0]->kenteken}}
                 @foreach ($locations as $location)
                     <script>
                         L.marker([{{$location->latitude}}, {{$location->longitude}}]).addTo(map)
