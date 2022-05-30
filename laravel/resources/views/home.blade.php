@@ -29,6 +29,8 @@
                             @foreach($customers as $customer)
                                 <option value="{{$customer->ID_Klant}}">{{$customer->klantnaam}}</option>
 
+
+
                             @endforeach
                         </select>
                     <div id="map"></div>
