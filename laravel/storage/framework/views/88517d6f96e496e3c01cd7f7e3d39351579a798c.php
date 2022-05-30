@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="<?php echo e(asset('js/app.js')); ?>" defer></script>
+    <script src="<?php echo e(asset('js/bootstrap.js')); ?>" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -70,6 +71,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="/home"> Home </a>
                                     <a class="dropdown-item" href="<?php echo e(route('logout')); ?>"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -91,6 +93,8 @@
         <main class="py-4">
             <?php echo $__env->yieldContent('content'); ?>
         </main>
+
+
     </div>
 </body>
 </html>

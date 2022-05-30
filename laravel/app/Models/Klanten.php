@@ -14,6 +14,5 @@ class Klanten extends Model
     protected $fillable = [
         'ID_Klant',
         'klantnaam',
-        'ID_Plaats',
     ];
 }

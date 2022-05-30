@@ -23,10 +23,20 @@
                     {{ __('You are logged in!') }}
                 </div>
 
-                <form method="POST" action="/home">@csrf<div id="map"></div></form>
+                <form method="POST" action="/home">@csrf
+                    <label for="cars">Selecteer welke klant u bent.</label>
+                        <select id="klant" name="klant">
+                            @foreach($customers as $customer)
+                                <option value="{{$customer->ID_Klant}}">{{$customer->klantnaam}}</option>
+                            @endforeach
+                        </select>
+                    <div id="map"></div>
+                </form>
 
                 <script src="{{ asset('js/map.js') }}"></script>
-                {{$numberboard[0]->kenteken}}
+                {{$customers[0]->klantnaam}}
+                {{$numberboards[0]->kenteken}}
+
                 @foreach ($locations as $location)
                     <script>
                         L.marker([{{$location->latitude}}, {{$location->longitude}}]).addTo(map)
@@ -41,7 +51,7 @@
                                 <div class="col-xs-1 center-block text-center">
                                     <input type="hidden" name="latitude" value="{{$location->latitude}}">
                                     <input type="hidden" name="longitude" value="{{$location->longitude}}">
-                                    <input type="hidden" name="name" value="{{$location->name}}">
+                                    <input type="hidden" name="name" value="{{$location->adres}}">
                                     <input type="submit" class="btn btn-primary" name="{{$location->id}}" value="Start parkeren">
                                 </div>
                             </div>
