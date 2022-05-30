@@ -19,5 +19,5 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\LocationController::class, 'Index']);
-Route::post('/home', [App\Http\Controllers\ParkingController::class, 'HandleReservation']);
+Route::get('/home', [App\Http\Controllers\LocationController::class, 'index']);
+Route::POST('/home',[App\Http\Controllers\ParkingController::class, 'HandleReservation']);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Location;
+use App\Models\Vmiddel;
 
 class LocationController extends Controller
 {
@@ -13,8 +14,11 @@ class LocationController extends Controller
     }
 
     public function index(){
-        $locations = Location::all();
 
-        return view('home', compact(['locations']));
+        $locations = Location::all();
+        $numberboard = Vmiddel::all();
+
+        return view('home', compact(['locations']), compact(['numberboard']));
+
     }
 }
