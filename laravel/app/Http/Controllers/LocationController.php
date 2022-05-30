@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Location;
 use App\Models\Vmiddel;
+use App\Models\Klanten;
 
 class LocationController extends Controller
 {
@@ -16,9 +17,10 @@ class LocationController extends Controller
     public function index(){
 
         $locations = Location::all();
-        $numberboard = Vmiddel::all();
+        $numberboards = Vmiddel::all();
+        $customers = Klanten::all();
 
-        return view('home', compact(['locations']), compact(['numberboard']));
+        return view('home', compact(['customers', 'numberboards', 'locations']));
 
     }
 }
