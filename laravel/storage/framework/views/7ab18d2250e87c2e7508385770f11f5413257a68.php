@@ -22,7 +22,15 @@
                     <?php echo e(__('You are logged in!')); ?>
 
                 </div>
-
+                <?php if($errors->any()): ?>
+                    <div class="alert alert-danger">
+                        <ul>
+                            <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <li><?php echo e($error); ?></li>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </ul>
+                    </div>
+                <?php endif; ?>
                 <form method="POST" action="/home"><?php echo csrf_field(); ?>
                     <label for="costumer">Selecteer welke klant u bent.</label>
                         <select id="costumer" name="costumer">
@@ -31,19 +39,17 @@
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
                     <label for="numberboards" >Nummerborden</label>
-                        <select id="numberboards" name="numberboards">
+                        <select id="numberboards" name="numberboard">
+                            <option value="" disabled selected>Selecteer nummerbord</option>
                             <?php $__currentLoopData = $numberboards; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $numberboard): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <option id="<?php echo e($numberboard->ID_Klant); ?>" value="<?php echo e($numberboard->kenteken); ?>"><?php echo e($numberboard->kenteken); ?></option>
+                                <option class="d-none" id="<?php echo e($numberboard->ID_Klant); ?>" value="<?php echo e($numberboard->kenteken); ?>"><?php echo e($numberboard->kenteken); ?></option>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
+
                     <div id="map"></div>
                 </form>
 
                 <script src="<?php echo e(asset('js/map.js')); ?>"></script>
-                <?php echo e($customers[0]->klantnaam); ?>
-
-                <?php echo e($numberboards[0]->kenteken); ?>
-
 
                 <?php $__currentLoopData = $locations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $location): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <script>

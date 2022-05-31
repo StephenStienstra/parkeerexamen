@@ -22,7 +22,15 @@
 
                     {{ __('You are logged in!') }}
                 </div>
-
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <form method="POST" action="/home">@csrf
                     <label for="costumer">Selecteer welke klant u bent.</label>
                         <select id="costumer" name="costumer">
@@ -31,17 +39,17 @@
                             @endforeach
                         </select>
                     <label for="numberboards" >Nummerborden</label>
-                        <select id="numberboards" name="numberboards">
+                        <select id="numberboards" name="numberboard">
+                            <option value="" disabled selected>Selecteer nummerbord</option>
                             @foreach ($numberboards as $numberboard)
-                                <option id="{{$numberboard->ID_Klant}}" value="{{$numberboard->kenteken}}">{{$numberboard->kenteken}}</option>
+                                <option class="d-none" id="{{$numberboard->ID_Klant}}" value="{{$numberboard->kenteken}}">{{$numberboard->kenteken}}</option>
                             @endforeach
                         </select>
+
                     <div id="map"></div>
                 </form>
 
                 <script src="{{ asset('js/map.js') }}"></script>
-                {{$customers[0]->klantnaam}}
-                {{$numberboards[0]->kenteken}}
 
                 @foreach ($locations as $location)
                     <script>
