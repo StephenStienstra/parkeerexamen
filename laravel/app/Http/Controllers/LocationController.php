@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Location;
 use App\Models\Vmiddel;
-use App\Models\Klanten;
+use App\Models\Costumers;
 
 class LocationController extends Controller
 {
@@ -18,7 +18,7 @@ class LocationController extends Controller
 
         $locations = Location::all();
         $numberboards = Vmiddel::all();
-        $customers = Klanten::all();
+        $customers = Costumers::all();
 
         return view('home', compact(['customers', 'numberboards', 'locations']));
 
