@@ -24,7 +24,8 @@ class ParkingSession extends FormRequest
     public function rules()
     {
         return [
-            //
+            'numberboard' => 'required',
+            'parkeerplaats' => 'required',
         ];
     }
 }
