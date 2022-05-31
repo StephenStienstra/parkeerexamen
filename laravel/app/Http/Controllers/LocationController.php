@@ -23,4 +23,15 @@ class LocationController extends Controller
         return view('home', compact(['customers', 'numberboards', 'locations']));
 
     }
+
+    public function ajax(){
+
+        $numberboards = Vmiddel::all();
+
+        return response()->json([
+            'numberboards' => $numberboards,
+        ]);
+
+    }
+
 }
