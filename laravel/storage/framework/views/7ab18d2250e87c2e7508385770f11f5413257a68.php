@@ -28,6 +28,9 @@
                         <select id="klant" name="klant">
                             <?php $__currentLoopData = $customers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $customer): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <option value="<?php echo e($customer->ID_Klant); ?>"><?php echo e($customer->klantnaam); ?></option>
+
+
+
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
                     <div id="map"></div>
@@ -51,9 +54,7 @@
                                     Aantal plekken: <?php echo e($location->aantalplekken); ?><br>
                                 </p>
                                 <div class="col-xs-1 center-block text-center">
-                                    <input type="hidden" name="latitude" value="<?php echo e($location->latitude); ?>">
-                                    <input type="hidden" name="longitude" value="<?php echo e($location->longitude); ?>">
-                                    <input type="hidden" name="name" value="<?php echo e($location->adres); ?>">
+                                    <input type="hidden" name="parkeerplaats" value="<?php echo e($location->ID_Parkeerplaats); ?>">
                                     <input type="submit" class="btn btn-primary" name="<?php echo e($location->id); ?>" value="Start parkeren">
                                 </div>
                             </div>
