@@ -7,6 +7,11 @@
            width:100%;
        }
     </style>
+
+    @if (session('message'))
+    <div class="alert alert-succes" >{{session('message')}}</div>
+    @endif
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -31,6 +36,7 @@
                         </ul>
                     </div>
                 @endif
+
                 <form method="POST" action="/home">@csrf
                     <label for="costumer">Selecteer welke klant u bent.</label>
                         <select id="costumer" name="costumer">
@@ -40,7 +46,7 @@
                         </select>
                     <label for="numberboards" >Nummerborden</label>
                         <select id="numberboards" name="numberboard">
-                            <option value="" disabled selected>Selecteer nummerbord</option>
+                            {{-- <option value="" disabled selected>Selecteer nummerbord</option> --}}
                             @foreach ($numberboards as $numberboard)
                                 <option class="d-none" id="{{$numberboard->ID_Klant}}" value="{{$numberboard->kenteken}}">{{$numberboard->kenteken}}</option>
                             @endforeach
@@ -63,9 +69,7 @@
                                     Aantal plekken: {{ $location->aantalplekken}}<br>
                                 </p>
                                 <div class="col-xs-1 center-block text-center">
-                                    <input type="hidden" name="latitude" value="{{$location->latitude}}">
-                                    <input type="hidden" name="longitude" value="{{$location->longitude}}">
-                                    <input type="hidden" name="name" value="{{$location->name}}">
+                                    <input type="hidden" name="parkeerplaats" value="{{$location->ID_Parkeerplaats}}">
                                     <input type="submit" class="btn btn-primary" name="{{$location->id}}" value="Start parkeren">
                                 </div>
                             </div>

@@ -10,8 +10,7 @@ class ParkingController extends Controller
 {
 
     public function HandleReservation(ParkingSession $request){
-dd($request);
-        return view('home');
+        return redirect('/home')->with('message', 'Uw transactie gegevens');
 
     }
 
