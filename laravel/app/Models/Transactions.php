@@ -18,21 +18,6 @@ class Transactions extends Model
         'kenteken',
         'begintijd',
         'eindtijd',
-        'ID_Klant',
-        'klantnaam',
-        'ID_plaats',
-        'plaatsnaam',
-        'ID_Gemeente',
-        'adres',
-        'postcode',
-        'lattitude',
-        'longitude',
-        'parkeeplaatsnaam',
-        'aantalplekken',
-        'ingangsdatum',
-        'prijs',
-        'gemeentenaam',
-        'ID_Provincie',
-        'provincienaam',
+
     ];
 }

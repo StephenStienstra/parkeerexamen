@@ -19,5 +19,6 @@ class Location extends Model
         'latitude',
         'longitude',
         'ID_parkeerplaats',
+        'ID_plaats'
     ];
 }
