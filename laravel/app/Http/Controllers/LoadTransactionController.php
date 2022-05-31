@@ -26,7 +26,13 @@ class LoadTransactionController extends Controller
     public function index(){
 
         $transactions = Transactions::join('locaties', 'transacties.ID_Parkeerplaats', '=', 'locaties.ID_Parkeerplaats')
-           ->get();
+            ->join('vmiddel', 'transacties.kenteken', '=', 'vmiddel.kenteken')
+            ->join('klanten', 'vmiddel.ID_klant', '=', 'klanten.ID_klant')
+            ->join('plaatsen', 'locaties.ID_plaats', '=', 'plaatsen.ID_plaats')
+            ->join('gemeenten', 'plaatsen.ID_gemeente', '=', 'gemeenten.ID_gemeente')
+            ->join('provincies', 'gemeenten.ID_provincie', '=', 'provincies.ID_provincie')
+            ->join('parkeerprijzen', 'locaties.ID_parkeerplaats', '=', 'parkeerprijzen.ID_parkeerplaats')
+            ->get();
 
         return view('dashboard', compact(['transactions']));
 
