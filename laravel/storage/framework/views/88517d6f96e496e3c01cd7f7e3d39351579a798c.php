@@ -12,6 +12,7 @@
     <!-- Scripts -->
     <script src="<?php echo e(asset('js/app.js')); ?>" defer></script>
     <script src="<?php echo e(asset('js/bootstrap.js')); ?>" defer></script>
+    <script src="<?php echo e(asset('js/jquery.js')); ?>"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -97,5 +98,8 @@
 
     </div>
 </body>
+<footer>
+    <?php echo $__env->yieldContent('footer-scripts'); ?>
+</footer>
 </html>
 <?php /**PATH C:\xampp\htdocs\Examen\parkeerexamen\laravel\resources\views/layouts/app.blade.php ENDPATH**/ ?>
