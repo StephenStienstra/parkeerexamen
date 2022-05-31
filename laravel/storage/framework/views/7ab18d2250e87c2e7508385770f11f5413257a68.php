@@ -24,13 +24,16 @@
                 </div>
 
                 <form method="POST" action="/home"><?php echo csrf_field(); ?>
-                    <label for="cars">Selecteer welke klant u bent.</label>
-                        <select id="klant" name="klant">
+                    <label for="costumer">Selecteer welke klant u bent.</label>
+                        <select id="costumer" name="costumer">
                             <?php $__currentLoopData = $customers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $customer): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <option value="<?php echo e($customer->ID_Klant); ?>"><?php echo e($customer->klantnaam); ?></option>
-
-
-
+                                <option id="<?php echo e($customer->ID_Klant); ?>" value="<?php echo e($customer->ID_Klant); ?>"><?php echo e($customer->klantnaam); ?></option>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </select>
+                    <label for="numberboards" >Nummerborden</label>
+                        <select id="numberboards" name="numberboards">
+                            <?php $__currentLoopData = $numberboards; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $numberboard): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option id="<?php echo e($numberboard->ID_Klant); ?>" value="<?php echo e($numberboard->kenteken); ?>"><?php echo e($numberboard->kenteken); ?></option>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
                     <div id="map"></div>

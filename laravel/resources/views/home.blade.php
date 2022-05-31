@@ -24,13 +24,16 @@
                 </div>
 
                 <form method="POST" action="/home">@csrf
-                    <label for="cars">Selecteer welke klant u bent.</label>
-                        <select id="klant" name="klant">
+                    <label for="costumer">Selecteer welke klant u bent.</label>
+                        <select id="costumer" name="costumer">
                             @foreach($customers as $customer)
-                                <option value="{{$customer->ID_Klant}}">{{$customer->klantnaam}}</option>
-
-
-
+                                <option id="{{$customer->ID_Klant}}" value="{{$customer->ID_Klant}}">{{$customer->klantnaam}}</option>
+                            @endforeach
+                        </select>
+                    <label for="numberboards" >Nummerborden</label>
+                        <select id="numberboards" name="numberboards">
+                            @foreach ($numberboards as $numberboard)
+                                <option id="{{$numberboard->ID_Klant}}" value="{{$numberboard->kenteken}}">{{$numberboard->kenteken}}</option>
                             @endforeach
                         </select>
                     <div id="map"></div>
