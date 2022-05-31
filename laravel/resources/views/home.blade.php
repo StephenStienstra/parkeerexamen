@@ -9,7 +9,7 @@
     </style>
 
     @if (session('message'))
-    <div class="alert alert-succes" >{{session('message')}}</div>
+        <div class="alert alert-succes" >{{session('message')}}</div>
     @endif
 
 <div class="container">
@@ -39,14 +39,14 @@
 
                 <form method="POST" action="/home">@csrf
                     <label for="customer">Selecteer welke klant u bent.</label>
-                        <select id="customer" name="customer">
+                        <select id="customer" name="ID_Klant">
                             <option value="" disabled selected>Selecteer klant</option>
                             @foreach($customers as $customer)
                                 <option id="{{$customer->ID_Klant}}" value="{{$customer->ID_Klant}}">{{$customer->klantnaam}}</option>
                             @endforeach
                         </select>
                     <label for="numberboards" >Nummerborden</label>
-                        <select id="numberboards" name="numberboard">
+                        <select id="numberboards" name="kenteken">
                         </select>
 
                     <div id="map"></div>
@@ -74,8 +74,9 @@
                     Aantal plekken: {{ $location->aantalplekken}}<br>
                 </p>
                 <div class="col-xs-1 center-block text-center">
-                    <input type="hidden" name="parkeerplaats" value="{{$location->ID_Parkeerplaats}}">
+                    <input type="hidden" name="ID_Parkeerplaats" value="{{$location->ID_Parkeerplaats}}">
                     <input type="submit" class="btn btn-primary" name="{{$location->id}}" value="Start parkeren">
+
                 </div>
             </div>
             `

@@ -12,6 +12,7 @@ class Transactions extends Model
     use HasFactory;
 
     protected $table = 'transacties';
+    public $timestamps = false;
 
     protected $fillable = [
         'ID_Parkeerplaats',
