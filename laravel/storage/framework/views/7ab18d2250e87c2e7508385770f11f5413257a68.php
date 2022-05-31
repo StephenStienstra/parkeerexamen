@@ -34,6 +34,7 @@
                 <form method="POST" action="/home"><?php echo csrf_field(); ?>
                     <label for="costumer">Selecteer welke klant u bent.</label>
                         <select id="costumer" name="costumer">
+                            <option value="" disabled selected>Selecteer klant</option>
                             <?php $__currentLoopData = $customers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $customer): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <option id="<?php echo e($customer->ID_Klant); ?>" value="<?php echo e($customer->ID_Klant); ?>"><?php echo e($customer->klantnaam); ?></option>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -54,7 +55,7 @@
 
 <?php $__env->startSection('footer-scripts'); ?>
 
-<script src="<?php echo e(asset('js/fetchnumberboards.js')); ?>"></script>
+
 <script src="<?php echo e(asset('js/map.js')); ?>"></script>
 
 <?php $__currentLoopData = $locations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $location): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>

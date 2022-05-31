@@ -13,6 +13,7 @@
     <script src="<?php echo e(asset('js/app.js')); ?>" defer></script>
     <script src="<?php echo e(asset('js/bootstrap.js')); ?>" defer></script>
     <script src="<?php echo e(asset('js/jquery.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/fetchnumberboards.js')); ?>"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">

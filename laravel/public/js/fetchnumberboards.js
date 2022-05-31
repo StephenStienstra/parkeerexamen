@@ -1,8 +1,11 @@
 $(document).ready(function(){
 
-    fetchnumberboards();
+    $('#costumer').on('change', function() {
+        fetchnumberboards( this.value );
+    });
 
-    function fetchnumberboards(){
+    function fetchnumberboards(recieved){
+        console.log(recieved);
 
         $.ajax({
             type: "GET",
@@ -11,9 +14,14 @@ $(document).ready(function(){
             success: function(response){
                 //console.log(response.numberboards);
                 $.each(response.numberboards, function (key, item) {
-                    $('#numberboards').append(`
-                        <option id="`+item.ID_Klant+`" value="`+item.kenteken+`">`+item.kenteken+`</option>
-                    `)
+
+                    if(item.ID_Klant == recieved){
+
+                        $('#numberboards').append(`
+                            <option id="`+item.ID_Klant+`" value="`+item.kenteken+`">`+item.kenteken+`</option>
+                        `)
+
+                    }
                 });
             }
         })
