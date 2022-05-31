@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    $('#costumer').on('change', function() {
+    $('#customer').on('change', function() {
         $("#numberboards").empty();
         fetchnumberboards( this.value );
     });
@@ -13,7 +13,6 @@ $(document).ready(function(){
             url: "/fetch-numberboards",
             dataType: "json",
             success: function(response){
-                //console.log(response.numberboards);
                 $.each(response.numberboards, function (key, item) {
 
                     if(item.ID_Klant == recieved){

@@ -32,8 +32,8 @@
                     </div>
                 <?php endif; ?>
                 <form method="POST" action="/home"><?php echo csrf_field(); ?>
-                    <label for="costumer">Selecteer welke klant u bent.</label>
-                        <select id="costumer" name="costumer">
+                    <label for="customer">Selecteer welke klant u bent.</label>
+                        <select id="customer" name="customer">
                             <option value="" disabled selected>Selecteer klant</option>
                             <?php $__currentLoopData = $customers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $customer): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <option id="<?php echo e($customer->ID_Klant); ?>" value="<?php echo e($customer->ID_Klant); ?>"><?php echo e($customer->klantnaam); ?></option>
