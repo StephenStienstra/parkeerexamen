@@ -48,34 +48,39 @@
 
                     <div id="map"></div>
                 </form>
-
-                <script src="<?php echo e(asset('js/map.js')); ?>"></script>
-
-                <?php $__currentLoopData = $locations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $location): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <script>
-                        L.marker([<?php echo e($location->latitude); ?>, <?php echo e($location->longitude); ?>]).addTo(map)
-                        .bindPopup(
-                            `
-                            <div class="row">
-                                <p class="col-xs-1 center-block text-center">
-                                    Adres: <?php echo e($location->adres); ?><br>
-                                    Postcode: <?php echo e($location->postcode); ?><br>
-                                    Aantal plekken: <?php echo e($location->aantalplekken); ?><br>
-                                </p>
-                                <div class="col-xs-1 center-block text-center">
-                                    <input type="hidden" name="parkeerplaats" value="<?php echo e($location->ID_Parkeerplaats); ?>">
-                                    <input type="submit" class="btn btn-primary" name="<?php echo e($location->id); ?>" value="Start parkeren">
-                                </div>
-                            </div>
-                            `
-                            )
-                        .openPopup();
-                    </script>
-                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
         </div>
     </div>
 </div>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('footer-scripts'); ?>
+
+<script src="<?php echo e(asset('js/fetchnumberboards.js')); ?>"></script>
+<script src="<?php echo e(asset('js/map.js')); ?>"></script>
+
+<?php $__currentLoopData = $locations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $location): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+    <script>
+        L.marker([<?php echo e($location->latitude); ?>, <?php echo e($location->longitude); ?>]).addTo(map)
+        .bindPopup(
+            `
+            <div class="row">
+                <p class="col-xs-1 center-block text-center">
+                    Adres: <?php echo e($location->adres); ?><br>
+                    Postcode: <?php echo e($location->postcode); ?><br>
+                    Aantal plekken: <?php echo e($location->aantalplekken); ?><br>
+                </p>
+                <div class="col-xs-1 center-block text-center">
+                    <input type="hidden" name="parkeerplaats" value="<?php echo e($location->ID_Parkeerplaats); ?>">
+                    <input type="submit" class="btn btn-primary" name="<?php echo e($location->id); ?>" value="Start parkeren">
+                </div>
+            </div>
+            `
+            )
+        .openPopup();
+    </script>
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\Examen\parkeerexamen\laravel\resources\views/home.blade.php ENDPATH**/ ?>
