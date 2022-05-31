@@ -41,9 +41,7 @@
                     <label for="numberboards" >Nummerborden</label>
                         <select id="numberboards" name="numberboard">
                             <option value="" disabled selected>Selecteer nummerbord</option>
-                            @foreach ($numberboards as $numberboard)
-                                <option class="d-none" id="{{$numberboard->ID_Klant}}" value="{{$numberboard->kenteken}}">{{$numberboard->kenteken}}</option>
-                            @endforeach
+
                         </select>
 
                     <div id="map"></div>

@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LocationController;
+use App\Http\Controllers\ParkingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,5 +21,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\LocationController::class, 'index']);
-Route::POST('/home',[App\Http\Controllers\ParkingController::class, 'HandleReservation']);
+Route::get('/home', [LocationController::class, 'index']);
+Route::POST('/home',[ParkingController::class, 'HandleReservation']);
+
+Route::get('/fetch-numberboards', [LocationController::class, 'ajax']);

@@ -41,9 +41,7 @@
                     <label for="numberboards" >Nummerborden</label>
                         <select id="numberboards" name="numberboard">
                             <option value="" disabled selected>Selecteer nummerbord</option>
-                            <?php $__currentLoopData = $numberboards; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $numberboard): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <option class="d-none" id="<?php echo e($numberboard->ID_Klant); ?>" value="<?php echo e($numberboard->kenteken); ?>"><?php echo e($numberboard->kenteken); ?></option>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
                         </select>
 
                     <div id="map"></div>
