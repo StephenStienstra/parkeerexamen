@@ -40,14 +40,13 @@
                 <form method="POST" action="/home">@csrf
                     <label for="costumer">Selecteer welke klant u bent.</label>
                         <select id="costumer" name="costumer">
+                            <option value="" disabled selected>Selecteer klant</option>
                             @foreach($customers as $customer)
                                 <option id="{{$customer->ID_Klant}}" value="{{$customer->ID_Klant}}">{{$customer->klantnaam}}</option>
                             @endforeach
                         </select>
                     <label for="numberboards" >Nummerborden</label>
                         <select id="numberboards" name="numberboard">
-                            <option value="" disabled selected>Selecteer nummerbord</option>
-
                         </select>
 
                     <div id="map"></div>
@@ -60,7 +59,7 @@
 
 @section('footer-scripts')
 
-<script src="{{ asset('js/fetchnumberboards.js') }}"></script>
+
 <script src="{{ asset('js/map.js') }}"></script>
 
 @foreach ($locations as $location)
