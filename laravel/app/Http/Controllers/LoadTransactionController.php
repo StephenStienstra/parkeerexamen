@@ -32,9 +32,41 @@ class LoadTransactionController extends Controller
             ->join('gemeenten', 'plaatsen.ID_gemeente', '=', 'gemeenten.ID_gemeente')
             ->join('provincies', 'gemeenten.ID_provincie', '=', 'provincies.ID_provincie')
             ->join('parkeerprijzen', 'locaties.ID_parkeerplaats', '=', 'parkeerprijzen.ID_parkeerplaats')
+            ->where('transacties.ID_parkeerplaats', '=', '1015')
+            ->orderBy('klantnaam')
             ->get();
 
         return view('dashboard', compact(['transactions']));
+
+    }
+
+    public function indexcustomer(){
+
+        $transactions = Customer::join('vmiddel', 'klanten.ID_klant', '=', 'vmiddel.ID_klant')
+            ->join('transacties', 'vmiddel.kenteken', '=', 'transacties.kenteken')
+            ->join('locaties', 'transacties.ID_Parkeerplaats', '=', 'locaties.ID_Parkeerplaats')
+            ->join('plaatsen', 'locaties.ID_plaats', '=', 'plaatsen.ID_plaats')
+            ->join('gemeenten', 'plaatsen.ID_gemeente', '=', 'gemeenten.ID_gemeente')
+            ->join('provincies', 'gemeenten.ID_provincie', '=', 'provincies.ID_provincie')
+            ->join('parkeerprijzen', 'locaties.ID_parkeerplaats', '=', 'parkeerprijzen.ID_parkeerplaats')
+            ->orderBy('klantnaam')
+            ->get();
+
+        return view('dashboardcustomer', compact(['transactions']));
+
+    }
+
+    public function indexgoverment(){
+
+        $transactions = Transactions::join('locaties', 'transacties.ID_Parkeerplaats', '=', 'locaties.ID_Parkeerplaats')
+            ->join('plaatsen', 'locaties.ID_plaats', '=', 'plaatsen.ID_plaats')
+            ->join('gemeenten', 'plaatsen.ID_gemeente', '=', 'gemeenten.ID_gemeente')
+            ->join('beheerders', 'gemeenten.ID_gemeente', '=', 'beheerders.ID_gemeente')
+            ->join('provincies', 'gemeenten.ID_provincie', '=', 'provincies.ID_provincie')
+            ->join('parkeerprijzen', 'locaties.ID_parkeerplaats', '=', 'parkeerprijzen.ID_parkeerplaats')
+            ->get();
+
+        return view('dashboardgoverment', compact(['transactions']));
 
     }
 
