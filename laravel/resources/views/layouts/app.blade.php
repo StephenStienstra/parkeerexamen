@@ -14,6 +14,7 @@
     <script src="{{ asset('js/bootstrap.js') }}" defer></script>
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/fetchnumberboards.js') }}"></script>
+    <script src="{{ asset('js/endsessionbutton.js') }}"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">

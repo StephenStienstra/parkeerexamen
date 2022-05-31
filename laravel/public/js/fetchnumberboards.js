@@ -6,7 +6,6 @@ $(document).ready(function(){
     });
 
     function fetchnumberboards(recieved){
-        console.log(recieved);
 
         $.ajax({
             type: "GET",
