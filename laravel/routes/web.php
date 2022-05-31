@@ -24,4 +24,6 @@ Auth::routes();
 Route::get('/home', [LocationController::class, 'index']);
 Route::POST('/home',[ParkingController::class, 'HandleReservation']);
 
+Route::get('/dashboard', [App\Http\Controllers\LoadTransactionController::class, 'index']);
+
 Route::get('/fetch-numberboards', [LocationController::class, 'ajax']);

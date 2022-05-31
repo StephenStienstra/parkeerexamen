@@ -14,5 +14,6 @@ class Costumers extends Model
     protected $fillable = [
         'ID_Klant',
         'klantnaam',
+        'ID_plaats',
     ];
 }
