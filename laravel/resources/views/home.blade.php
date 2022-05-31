@@ -28,6 +28,9 @@
                         <select id="klant" name="klant">
                             @foreach($customers as $customer)
                                 <option value="{{$customer->ID_Klant}}">{{$customer->klantnaam}}</option>
+
+
+
                             @endforeach
                         </select>
                     <div id="map"></div>
@@ -51,7 +54,7 @@
                                 <div class="col-xs-1 center-block text-center">
                                     <input type="hidden" name="latitude" value="{{$location->latitude}}">
                                     <input type="hidden" name="longitude" value="{{$location->longitude}}">
-                                    <input type="hidden" name="name" value="{{$location->adres}}">
+                                    <input type="hidden" name="name" value="{{$location->name}}">
                                     <input type="submit" class="btn btn-primary" name="{{$location->id}}" value="Start parkeren">
                                 </div>
                             </div>
