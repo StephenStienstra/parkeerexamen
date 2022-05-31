@@ -10,8 +10,8 @@ class ParkingController extends Controller
 {
 
     public function HandleReservation(ParkingSession $request){
-
-        dd($request);
+dd($request);
+        return view('home');
 
     }
 

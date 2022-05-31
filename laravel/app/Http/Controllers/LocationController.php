@@ -20,6 +20,7 @@ class LocationController extends Controller
         $numberboards = Vmiddel::all();
         $customers = Klanten::all();
 
+
         return view('home', compact(['customers', 'numberboards', 'locations']));
 
     }
