@@ -41,8 +41,6 @@
                         </select>
                     <label for="numberboards" >Nummerborden</label>
                         <select id="numberboards" name="numberboard">
-                            <option value="" disabled selected>Selecteer nummerbord</option>
-
                         </select>
 
                     <div id="map"></div>

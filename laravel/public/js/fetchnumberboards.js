@@ -1,6 +1,7 @@
 $(document).ready(function(){
 
     $('#costumer').on('change', function() {
+        $("#numberboards").empty();
         fetchnumberboards( this.value );
     });
 
