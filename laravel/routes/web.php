@@ -22,6 +22,4 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\LocationController::class, 'index']);
 Route::POST('/home',[App\Http\Controllers\ParkingController::class, 'HandleReservation']);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});
+Route::get('/dashboard', [App\Http\Controllers\LoadTransactionController::class, 'index']);
