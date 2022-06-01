@@ -1,3 +1,5 @@
+
+
 <?php $__env->startSection('content'); ?>
    <style>
        #map{
@@ -5,6 +7,11 @@
            width:100%;
        }
     </style>
+
+    <?php if(session('message')): ?>
+        <div class="alert alert-succes" ><?php echo e(session('message')); ?></div>
+    <?php endif; ?>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -31,17 +38,23 @@
                         </ul>
                     </div>
                 <?php endif; ?>
+
                 <form method="POST" action="/home"><?php echo csrf_field(); ?>
                     <label for="customer">Selecteer welke klant u bent.</label>
-                        <select id="customer" name="customer">
+                        <select id="customer" name="ID_Klant">
                             <option value="" disabled selected>Selecteer klant</option>
                             <?php $__currentLoopData = $customers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $customer): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <option id="<?php echo e($customer->ID_Klant); ?>" value="<?php echo e($customer->ID_Klant); ?>"><?php echo e($customer->klantnaam); ?></option>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
                     <label for="numberboards" >Nummerborden</label>
-                        <select id="numberboards" name="numberboard">
+                        <select id="numberboards" name="kenteken">
                         </select>
+
+                    <div class="" id="endsessionbutton">
+
+
+                    </div>
 
                     <div id="map"></div>
                 </form>
@@ -68,8 +81,9 @@
                     Aantal plekken: <?php echo e($location->aantalplekken); ?><br>
                 </p>
                 <div class="col-xs-1 center-block text-center">
-                    <input type="hidden" name="parkeerplaats" value="<?php echo e($location->ID_Parkeerplaats); ?>">
+                    <input type="hidden" name="ID_Parkeerplaats" value="<?php echo e($location->ID_Parkeerplaats); ?>">
                     <input type="submit" class="btn btn-primary" name="<?php echo e($location->id); ?>" value="Start parkeren">
+
                 </div>
             </div>
             `

@@ -14,6 +14,7 @@
     <script src="<?php echo e(asset('js/bootstrap.js')); ?>" defer></script>
     <script src="<?php echo e(asset('js/jquery.js')); ?>"></script>
     <script src="<?php echo e(asset('js/fetchnumberboards.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/endsessionbutton.js')); ?>"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -66,6 +67,11 @@
                                 </li>
                             <?php endif; ?>
                         <?php else: ?>
+                            <li class="nav-item dropdown"></li>
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                testing
+                            </a>
+
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     <?php echo e(Auth::user()->name); ?>
