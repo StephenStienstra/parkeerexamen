@@ -12,7 +12,7 @@ use App\Models\ParkingPrices;
 use App\Models\Places;
 use App\Models\Provinces;
 use App\Models\Location;
-use App\Models\Costumers;
+use App\Models\Customer;
 //use Illuminate\Support\Facades\DB;
 
 class LoadTransactionController extends Controller
@@ -25,27 +25,48 @@ class LoadTransactionController extends Controller
 
     public function index(){
 
-        $transactions = Transactions::all();
-        $vmiddel = vmiddel::all();
-        $communities = Communities::all();
-        $parkingprices = ParkingPrices::all();
-        $places = Places::all();
-        $provinces = Provinces::all();
-        $location = Location::all();
-        $customers = Costumers::all();
-        // $test = DB::table('transacties')
-        //    ->join('locaties', 'transacties.ID_Parkeerplaats', '=', 'locaties.ID_Parkeerplaats')
-        //    ->get();
+        $transactions = Transactions::join('locaties', 'transacties.ID_Parkeerplaats', '=', 'locaties.ID_Parkeerplaats')
+            ->join('vmiddel', 'transacties.kenteken', '=', 'vmiddel.kenteken')
+            ->join('klanten', 'vmiddel.ID_klant', '=', 'klanten.ID_klant')
+            ->join('plaatsen', 'locaties.ID_plaats', '=', 'plaatsen.ID_plaats')
+            ->join('gemeenten', 'plaatsen.ID_gemeente', '=', 'gemeenten.ID_gemeente')
+            ->join('provincies', 'gemeenten.ID_provincie', '=', 'provincies.ID_provincie')
+            ->join('parkeerprijzen', 'locaties.ID_parkeerplaats', '=', 'parkeerprijzen.ID_parkeerplaats')
+            ->where('transacties.ID_parkeerplaats', '=', '1015')
+            ->orderBy('klantnaam')
+            ->get();
 
-        $transactieArray = json_decode($transactions);
-        $locationArray = json_decode($location);
-        $dataArray = array_merge($transactieArray, ['ID_parkeeplaats' => $locationArray]);
-        $data = json_encode($dataArray);
-        //$data = $transactions->merge($location);
+        return view('dashboard', compact(['transactions']));
 
+    }
 
-        //return view('dashboard', compact(['transactions','vmiddel', 'communities', 'parkingprices', 'places', 'provinces', 'location', 'customers']));
-        return view('dashboard', compact(['data']));
+    public function indexcustomer(){
+
+        $transactions = Customer::join('vmiddel', 'klanten.ID_klant', '=', 'vmiddel.ID_klant')
+            ->join('transacties', 'vmiddel.kenteken', '=', 'transacties.kenteken')
+            ->join('locaties', 'transacties.ID_Parkeerplaats', '=', 'locaties.ID_Parkeerplaats')
+            ->join('plaatsen', 'locaties.ID_plaats', '=', 'plaatsen.ID_plaats')
+            ->join('gemeenten', 'plaatsen.ID_gemeente', '=', 'gemeenten.ID_gemeente')
+            ->join('provincies', 'gemeenten.ID_provincie', '=', 'provincies.ID_provincie')
+            ->join('parkeerprijzen', 'locaties.ID_parkeerplaats', '=', 'parkeerprijzen.ID_parkeerplaats')
+            ->orderBy('klantnaam')
+            ->get();
+
+        return view('dashboardcustomer', compact(['transactions']));
+
+    }
+
+    public function indexgoverment(){
+
+        $transactions = Transactions::join('locaties', 'transacties.ID_Parkeerplaats', '=', 'locaties.ID_Parkeerplaats')
+            ->join('plaatsen', 'locaties.ID_plaats', '=', 'plaatsen.ID_plaats')
+            ->join('gemeenten', 'plaatsen.ID_gemeente', '=', 'gemeenten.ID_gemeente')
+            ->join('beheerders', 'gemeenten.ID_gemeente', '=', 'beheerders.ID_gemeente')
+            ->join('provincies', 'gemeenten.ID_provincie', '=', 'provincies.ID_provincie')
+            ->join('parkeerprijzen', 'locaties.ID_parkeerplaats', '=', 'parkeerprijzen.ID_parkeerplaats')
+            ->get();
+
+        return view('dashboardgoverment', compact(['transactions']));
 
     }
 

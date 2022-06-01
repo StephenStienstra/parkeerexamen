@@ -11,8 +11,7 @@
     <table>
         <tr>
             <th>
-                <td>klantnaam</td>
-                <td>Kenteken</td>
+                <td>beheerder</td>
                 <td>parkeerplaats</td>
                 <td>adres</td>
                 <td>postcode</td>
@@ -26,8 +25,7 @@
         </tr>
         @foreach ($transactions as $transaction)
             <tr>
-                <td>{{$transaction->klantnaam}}</td>
-                <td>{{$transaction->kenteken}}</td>
+                <td>{{$transaction->beheerdernaam}}</td>
                 <td>{{$transaction->parkeerplaatsnaam}}</td>
                 <td>{{$transaction->adres}}</td>
                 <td>{{$transaction->postcode}}</td>

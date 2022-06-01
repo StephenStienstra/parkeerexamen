@@ -8,6 +8,19 @@
        }
     </style>
 
+    <form method="POST" action="/dashboardcustomer">@csrf
+        <label for="customer">Selecteer welke klant u bent.</label>
+           <select id="customer" name="customer">
+                <option value="" disabled selected>Selecteer klant</option>
+                @foreach($transactions as $customer)
+                    <option id="{{$customer->ID_Klant}}" value="{{$customer->ID_Klant}}">{{$customer->klantnaam}}</option>
+                @endforeach
+            </select>
+            <label for="numberboards" >Nummerborden</label>
+            <select id="numberboards" name="numberboard"></select>
+
+    </form>
+
     <table>
         <tr>
             <th>
