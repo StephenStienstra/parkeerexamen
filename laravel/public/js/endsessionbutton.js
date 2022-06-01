@@ -1,13 +1,17 @@
 $(document).ready(function(){
 
-    $('#customer').on('change', function() {
+    var userid;
 
+    $('#customer').on('change', function() {
+        $("#endsessionbutton").empty();
+        userid = this.value;
+        vmiddelnull();
     });
 
-    endsession();
+    var test = "test";
+    vmiddelnull();
 
-    function endsession(){
-
+    function vmiddelnull(){
         $.ajax({
             type: "GET",
             url: "/end-session",
@@ -15,18 +19,33 @@ $(document).ready(function(){
             success: function(response){
                 $.each(response.transactions, function (key, item) {
                     if(item.eindtijd == null){
-                        console.log(item);
+                        checknumberboards(item);
                     }
-
-
-                    // if(item.eindtijd == isNull){
-                    //     return(response.transactions);
-                    // }
-
                 });
+            }
+
+        })
+    }
+    function checknumberboards(nullkenteken){
+
+        $.ajax({
+            type: "GET",
+            url: "/fetch-numberboards",
+            dataType: "json",
+            success: function(response){
+                $.each(response.numberboards, function (key, item) {
+                    if(item.kenteken == nullkenteken.kenteken){
+                        console.log(item);
+
+
+
+
+                    }
+                });
+
+
             }
         })
 
     }
-
 });

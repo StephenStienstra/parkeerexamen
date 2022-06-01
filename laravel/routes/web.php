@@ -28,8 +28,8 @@ Route::get('/dashboard',[LoadTransactionController::class, 'index']);
 Route::get('/dashboardcustomer',[LoadTransactionController::class, 'indexcustomer']);
 Route::get('/dashboardgoverment',[LoadTransactionController::class, 'indexgoverment']);
 
-Route::get('/fetch-numberboards', [LocationController::class, 'ajax']);
 Route::get('/dashboard', [App\Http\Controllers\LoadTransactionController::class, 'index']);
 
 Route::get('/fetch-numberboards', [LocationController::class, 'fetchnumberboards']);
 Route::get('/end-session', [LocationController::class, 'endsession']);
+
