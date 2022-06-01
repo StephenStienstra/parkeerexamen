@@ -52,6 +52,8 @@ class PriceController extends Controller
                     'ID_Parkeerplaats' => $transactions[$counter]->ID_Parkeerplaats,
                     'kenteken' => $transactions[$counter]->kenteken,
                     'begintijd' => $transactions[$counter]->begintijd,
+                    'eindtijd' => $transactions[$counter]->eindtijd,
+                    'kostenperminuut' => $basepriceperminute,
                     'prijs' => $finalprice,
                 );
 
