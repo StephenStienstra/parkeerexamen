@@ -59,7 +59,7 @@ class PriceController extends Controller
 
             }else{
 
-                $finalprice = round($timespan * $records[0]->prijs);
+                $finalprice = round($timespan * $records[0]->prijs, 2);
 
                 $buildarray = array(
                     'ID_Parkeerplaats' => $transactions[$counter]->ID_Parkeerplaats,
