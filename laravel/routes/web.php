@@ -32,3 +32,5 @@ Route::get('/dashboardgoverment',[LoadTransactionController::class, 'indexgoverm
 
 Route::get('/fetch-numberboards', [LocationController::class, 'fetchnumberboards']);
 Route::get('/end-session', [LocationController::class, 'endsession']);
+
+Route::POST('/dashboardcustomer',[LoadTransactionController::class, 'RecieveCustomerID']);
