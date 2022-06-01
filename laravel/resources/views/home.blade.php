@@ -82,7 +82,7 @@
                 </p>
                 <div class="col-xs-1 center-block text-center">
                     <input type="hidden" name="ID_Parkeerplaats" value="{{$location->ID_Parkeerplaats}}">
-                    <input type="submit" class="btn btn-primary" name="{{$location->id}}" value="Start parkeren">
+                    <input type="submit" class="btn btn-primary" value="Start parkeren">
 
                 </div>
             </div>
