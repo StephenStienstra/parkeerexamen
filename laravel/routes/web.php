@@ -4,6 +4,7 @@ use App\Http\Controllers\LoadTransactionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\ParkingController;
+use App\Http\Controllers\PriceController;
 
 
 /*
@@ -27,6 +28,7 @@ Route::POST('/home',[ParkingController::class, 'HandleReservation']);
 Route::get('/dashboard',[LoadTransactionController::class, 'index']);
 Route::get('/dashboardcustomer',[LoadTransactionController::class, 'indexcustomer']);
 Route::get('/dashboardgoverment',[LoadTransactionController::class, 'indexgoverment']);
+Route::get('/pricetest', [PriceController::class, 'index']);
 
 //Ajax calls
 
