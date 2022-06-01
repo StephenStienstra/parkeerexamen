@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('content'); ?>
    <style>
        #map{
@@ -82,7 +80,7 @@
                 </p>
                 <div class="col-xs-1 center-block text-center">
                     <input type="hidden" name="ID_Parkeerplaats" value="<?php echo e($location->ID_Parkeerplaats); ?>">
-                    <input type="submit" class="btn btn-primary" name="<?php echo e($location->id); ?>" value="Start parkeren">
+                    <input type="submit" class="btn btn-primary" value="Start parkeren">
 
                 </div>
             </div>
