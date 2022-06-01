@@ -2,10 +2,10 @@ $(document).ready(function(){
 
     $('#customer').on('change', function() {
         $("#numberboards").empty();
-        fetchnumberboards( this.value );
+        checknumberboard( this.value );
     });
 
-    function fetchnumberboards(recieved){
+    function checknumberboard(recieved){
 
         $.ajax({
             type: "GET",
@@ -17,7 +17,7 @@ $(document).ready(function(){
                 `)
                 $.each(response.numberboards, function (key, item) {
 
-                    if(item.ID_Klant == recieved){
+                    if(item.kenteken == kenteken.eindtijd){
 
                         $('#numberboards').append(`
                             <option id="`+item.ID_Klant+`" value="`+item.kenteken+`">`+item.kenteken+`</option>
