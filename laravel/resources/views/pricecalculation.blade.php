@@ -4,10 +4,12 @@
 
 @foreach ($prices as $price)
 
-{{$price['prijs']}}
-{{$price['kenteken']}}
-{{$price['ID_Parkeerplaats']}}
-{{$price['begintijd']}}
+Prijs: €{{$price['prijs']}}
+Kentkenen: {{$price['kenteken']}}
+ID Parkeerplaats: {{$price['ID_Parkeerplaats']}}
+Begintijd: {{$price['begintijd']}}
+Eindtijd: {{$price['eindtijd']}}
+
 <br>
 
 @endforeach

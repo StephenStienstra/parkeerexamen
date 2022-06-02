@@ -16,9 +16,6 @@ class PriceController extends Controller
 
         $transactions = Transactions::all();
         $parkingplaceinfo = ParkingPrices::all();
-
-        //Start calculation of price by giving the transaction database
-
         $prices = $this->CalculateDate($transactions);
 
         return view('pricecalculation', compact(['prices', 'transactions', 'parkingplaceinfo']));
@@ -28,8 +25,6 @@ class PriceController extends Controller
     public function CalculateDate($transactions)
     {
 
-        //Declare variables
-
         $counter = 0;
         $basepriceperminute = 0.5;
         $past = Carbon::create('1970-01-01')->toDateTime();
@@ -37,64 +32,26 @@ class PriceController extends Controller
 
         foreach($transactions as $key => $value){
 
-            //Call needed functions
-
             $records = $this->GetDatabaseInfo($transactions, $counter, $past);
             $timespan = $this->GetTimeSpan($transactions, $counter);
+            $priceperminute = $this->GetPricePerMinute($records, $basepriceperminute);
 
-
-            if($records->isEmpty()){
-
-                //If there is no record, calculate price using the base price
-
-                $finalprice = round($timespan * $basepriceperminute, 2);
-
-                $buildarray = array(
-                    'ID_Parkeerplaats' => $transactions[$counter]->ID_Parkeerplaats,
-                    'kenteken' => $transactions[$counter]->kenteken,
-                    'begintijd' => $transactions[$counter]->begintijd,
-                    'eindtijd' => $transactions[$counter]->eindtijd,
-                    'kostenperminuut' => $basepriceperminute,
-                    'prijs' => $finalprice,
-                );
-
-            }else{
-
-                //If there is a record, calculate price using record price
-
-                $finalprice = round($timespan * $records[0]->prijs, 2);
-
-                $buildarray = array(
-                    'ID_Parkeerplaats' => $transactions[$counter]->ID_Parkeerplaats,
-                    'kenteken' => $transactions[$counter]->kenteken,
-                    'begintijd' => $transactions[$counter]->begintijd,
-                    'eindtijd' => $transactions[$counter]->eindtijd,
-                    'kostenperminuut' => $records[0]->prijs,
-                    'prijs' => $finalprice,
-                );
-
-            }
-
-            //Push into array and prepare for second loop
+            $finalprice = round($timespan * $priceperminute, 2);
+            $buildarray = $this->BuildArray($transactions, $counter, $priceperminute, $finalprice);
 
             array_push($prices, $buildarray);
             $counter++;
 
         }
 
-        //Return array
-        dd($prices);
         return $prices;
 
     }
 
     public function GetDatabaseInfo($transactions, $counter, $past)
     {
-        //Get the records for different parking spots where the parking spot ID matches the transaction's parking spot ID
-        //Only show those which were declared between 1970 and the date of the start of the parking transaction
-        //Order in descending order which will put the most recent price change to the top, giving the price needed for the calculation
 
-        return $records = DB::table('parkeerprijzen')->where('ID_Parkeerplaats', $transactions[$counter]->ID_Parkeerplaats)
+        return DB::table('parkeerprijzen')->where('ID_Parkeerplaats', $transactions[$counter]->ID_Parkeerplaats)
         ->whereBetween('ingangsdatum', [$past, $transactions[$counter]->begintijd])
         ->orderBy('ingangsdatum', 'DESC')->get();
 
@@ -102,14 +59,32 @@ class PriceController extends Controller
 
     public function GetTimeSpan($transactions, $counter)
     {
-        //Get the starting and end time of the transaction
-        //Calculate the amount of minutes the transaction took
 
-        $timeone = strtotime($transactions[$counter]->eindtijd);
-        $timetwo = strtotime($transactions[$counter]->begintijd);
+        return (strtotime($transactions[$counter]->eindtijd) - strtotime($transactions[$counter]->begintijd)) / 60;
 
-        return $timespan = ($timeone - $timetwo) / 60;
+    }
 
+    public function GetPricePerMinute($records, $basepriceperminute)
+    {
+
+        if($records->isEmpty()){
+            return $basepriceperminute;
+        }else{
+            return $records[0]->prijs;
+        }
+
+    }
+
+    public function BuildArray($transactions, $counter, $priceperminute, $finalprice)
+    {
+        return array(
+            'ID_Parkeerplaats' => $transactions[$counter]->ID_Parkeerplaats,
+            'kenteken' => $transactions[$counter]->kenteken,
+            'begintijd' => $transactions[$counter]->begintijd,
+            'eindtijd' => $transactions[$counter]->eindtijd,
+            'kostenperminuut' => $priceperminute,
+            'prijs' => $finalprice,
+        );
     }
 
 }
