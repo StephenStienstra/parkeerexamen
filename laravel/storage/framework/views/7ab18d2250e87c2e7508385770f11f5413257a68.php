@@ -1,3 +1,5 @@
+
+
 <?php $__env->startSection('content'); ?>
    <style>
        #map{
@@ -9,6 +11,8 @@
     <?php if(session('message')): ?>
         <div class="alert alert-succes" ><?php echo e(session('message')); ?></div>
     <?php endif; ?>
+
+
 
 <div class="container">
     <div class="row justify-content-center">
