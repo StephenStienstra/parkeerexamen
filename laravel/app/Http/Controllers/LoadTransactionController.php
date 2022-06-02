@@ -18,10 +18,17 @@ class LoadTransactionController extends Controller
         $this->middleware('auth');
     }
 
-    // Function to insert the customer ID into the SQL-code and send the results to the dashboard
-    public function RecieveCustomerTransactions(){
+    public function getCustomers(){
 
-        $customerID = 2040;
+        $transactions = Transactions::all();
+        $customers = Customer::all();
+        return view('dashboardcustomer', compact(['transactions', 'customers']));
+
+    }
+
+    // Function to insert the customer ID into the SQL-code and send the results to the dashboard
+    public function RecieveCustomerTransactions($customerID){
+
         $customers = Customer::all();
         $transactions = $this->indexcustomer($customerID);
         return view('dashboardcustomer', compact(['transactions', 'customers']));
@@ -58,9 +65,11 @@ class LoadTransactionController extends Controller
                     break;
             }
         }
+        // TEST
 
 
 
+    // Function to get all the transactions
     public function index(){
 
         $transactions = Transactions::join('locaties', 'transacties.ID_Parkeerplaats', '=', 'locaties.ID_Parkeerplaats')
@@ -70,15 +79,13 @@ class LoadTransactionController extends Controller
             ->join('gemeenten', 'plaatsen.ID_gemeente', '=', 'gemeenten.ID_gemeente')
             ->join('provincies', 'gemeenten.ID_provincie', '=', 'provincies.ID_provincie')
             ->join('parkeerprijzen', 'locaties.ID_parkeerplaats', '=', 'parkeerprijzen.ID_parkeerplaats')
-            ->where('transacties.ID_parkeerplaats', '=', '1015')
-            ->orderBy('klantnaam')
             ->get();
 
         return view('dashboard', compact(['transactions']));
 
     }
 
-    // Functie om de transactiegegevens van een klant in te laden
+    // Function to get all the transactions from a specific customer
     public function indexcustomer($customerID){
         $transactions = Transactions::join('locaties', 'transacties.ID_Parkeerplaats', '=', 'locaties.ID_Parkeerplaats')
             ->join('vmiddel', 'transacties.kenteken', '=', 'vmiddel.kenteken')
@@ -87,13 +94,12 @@ class LoadTransactionController extends Controller
             ->join('gemeenten', 'plaatsen.ID_gemeente', '=', 'gemeenten.ID_gemeente')
             ->join('provincies', 'gemeenten.ID_provincie', '=', 'provincies.ID_provincie')
             ->join('parkeerprijzen', 'locaties.ID_parkeerplaats', '=', 'parkeerprijzen.ID_parkeerplaats')
-            ->orderBy('klantnaam')
             ->where('klanten.ID_klant', '=', $customerID)
             ->get();
             return $transactions;
     }
 
-    // Functie om de transactiegegevens van een gemeente in te laden
+    // Function to get all the transactions from a specific goverment
     public function indexgoverment($govermentID){
 
         $transactions = Transactions::join('locaties', 'transacties.ID_Parkeerplaats', '=', 'locaties.ID_Parkeerplaats')
