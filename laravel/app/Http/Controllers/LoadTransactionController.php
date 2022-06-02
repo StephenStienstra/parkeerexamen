@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Transactions;
 use App\Models\GovermentAdmin;
 use App\Models\Customer;
+use App\Http\Controllers\PriceController;
 
 class LoadTransactionController extends Controller
 {
