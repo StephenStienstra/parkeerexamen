@@ -16,7 +16,6 @@ class PriceController extends Controller
 
         $transactions = Transactions::all();
         $parkingplaceinfo = ParkingPrices::all();
-
         $prices = $this->CalculateDate($transactions);
 
         return view('pricecalculation', compact(['prices', 'transactions', 'parkingplaceinfo']));
@@ -28,50 +27,19 @@ class PriceController extends Controller
 
         $counter = 0;
         $basepriceperminute = 0.5;
-
         $past = Carbon::create('1970-01-01')->toDateTime();
-
         $prices = array();
 
         foreach($transactions as $key => $value){
 
-            $records = DB::table('parkeerprijzen')->where('ID_Parkeerplaats', $transactions[$counter]->ID_Parkeerplaats)
-            ->whereBetween('ingangsdatum', [$past, $transactions[$counter]->begintijd])
-            ->orderBy('ingangsdatum', 'DESC')->get();
+            $records = $this->GetDatabaseInfo($transactions, $counter, $past);
+            $timespan = $this->GetTimeSpan($transactions, $counter);
+            $priceperminute = $this->GetPricePerMinute($records, $basepriceperminute);
 
-            $timeone = strtotime($transactions[$counter]->eindtijd);
-            $timetwo = strtotime($transactions[$counter]->begintijd);
-
-            $timespan = ($timeone - $timetwo) / 60;
-
-            if($records->isEmpty()){
-
-                $finalprice = round($timespan * $basepriceperminute, 2);
-
-                $buildarray = array(
-                    'ID_Parkeerplaats' => $transactions[$counter]->ID_Parkeerplaats,
-                    'kenteken' => $transactions[$counter]->kenteken,
-                    'begintijd' => $transactions[$counter]->begintijd,
-                    'prijs' => $finalprice,
-                );
-
-            }else{
-
-                $finalprice = round($timespan * $records[0]->prijs);
-
-                $buildarray = array(
-                    'ID_Parkeerplaats' => $transactions[$counter]->ID_Parkeerplaats,
-                    'kenteken' => $transactions[$counter]->kenteken,
-                    'begintijd' => $transactions[$counter]->begintijd,
-                    'eindtijd' => $transactions[$counter]->eindtijd,
-                    'kostenperminuut' => $records[0]->prijs,
-                    'prijs' => $finalprice,
-                );
-
-            }
+            $finalprice = round($timespan * $priceperminute, 2);
+            $buildarray = $this->BuildArray($transactions, $counter, $priceperminute, $finalprice);
 
             array_push($prices, $buildarray);
-
             $counter++;
 
         }
@@ -79,4 +47,44 @@ class PriceController extends Controller
         return $prices;
 
     }
+
+    public function GetDatabaseInfo($transactions, $counter, $past)
+    {
+
+        return DB::table('parkeerprijzen')->where('ID_Parkeerplaats', $transactions[$counter]->ID_Parkeerplaats)
+        ->whereBetween('ingangsdatum', [$past, $transactions[$counter]->begintijd])
+        ->orderBy('ingangsdatum', 'DESC')->get();
+
+    }
+
+    public function GetTimeSpan($transactions, $counter)
+    {
+
+        return (strtotime($transactions[$counter]->eindtijd) - strtotime($transactions[$counter]->begintijd)) / 60;
+
+    }
+
+    public function GetPricePerMinute($records, $basepriceperminute)
+    {
+
+        if($records->isEmpty()){
+            return $basepriceperminute;
+        }else{
+            return $records[0]->prijs;
+        }
+
+    }
+
+    public function BuildArray($transactions, $counter, $priceperminute, $finalprice)
+    {
+        return array(
+            'ID_Parkeerplaats' => $transactions[$counter]->ID_Parkeerplaats,
+            'kenteken' => $transactions[$counter]->kenteken,
+            'begintijd' => $transactions[$counter]->begintijd,
+            'eindtijd' => $transactions[$counter]->eindtijd,
+            'kostenperminuut' => $priceperminute,
+            'prijs' => $finalprice,
+        );
+    }
+
 }
