@@ -42,7 +42,11 @@
                 <td>{{$transaction->provincienaam}}</td>
                 <td>{{$transaction->begintijd}}</td>
                 <td>{{$transaction->eindtijd}}</td>
-                <td>{{$transaction->prijs}}</td>
+                @foreach ($prices as $price)
+                    @if ($price['ID_Parkeerplaats'] == $transaction['ID_Parkeerplaats'] && $price['kenteken'] == $transaction['kenteken'] && $price['begintijd'] == $transaction['begintijd'])
+                            <td>{{$price['prijs']}}</td>
+                    @endif
+                @endforeach
             </tr>
         @endforeach
         </tbody>

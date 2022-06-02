@@ -33,7 +33,9 @@ Route::get('/pricetest', [PriceController::class, 'index']);
 Route::get('/fetch-numberboards', [LocationController::class, 'fetchnumberboards']);
 Route::get('/end-session', [LocationController::class, 'endsession']);
 
-Route::get('/dashboardcustomer/select',[LoadTransactionController::class, 'getCustomers']);
+// Routes for the transactions on the dashboards
+Route::get('/dashboard',[LoadTransactionController::class, 'GetAllTransactions']);
+Route::get('/dashboardcustomer/select',[LoadTransactionController::class, 'GetCustomers']);
 Route::get('/dashboardcustomer/{klantID}',[LoadTransactionController::class, 'RecieveCustomerTransactions']);
-Route::get('/dashboardgoverment/select',[LoadTransactionController::class, 'getGoverment']);
+Route::get('/dashboardgoverment/select',[LoadTransactionController::class, 'GetGoverment']);
 Route::get('/dashboardgoverment/{govermentID}',[LoadTransactionController::class, 'RecieveGovermentTransactions']);

@@ -15,7 +15,7 @@
     <br>
     <br>
 
-    <table id="transactions" class="display">
+    <table id="transactions" class="display" style="width:95%">
         <thead>
             <tr>
                 <th>Klantnaam</th>
@@ -23,21 +23,26 @@
                 <th>Kenteken</th>
                 <th>plaatsnaam</th>
                 <th>Begintijd</th>
+                <th>eindtijd</th>
                 <th>prijs</th>
             </tr>
         </thead>
         <tbody>
         @foreach ($transactions as $transaction)
             <tr>
-                <td >{{$transaction->klantnaam}}</td>
+                <td>{{$transaction->klantnaam}}</td>
                 <td>{{$transaction->parkeerplaatsnaam}}</td>
                 <td>{{$transaction->kenteken}}</td>
                 <td>{{$transaction->plaatsnaam}}</td>
                 <td>{{$transaction->begintijd}}</td>
-                <td>{{$transaction->prijs}}</td>
+                <td>{{$transaction->eindtijd}}</td>
+                @foreach ($prices as $price)
+                    @if ($price['ID_Parkeerplaats'] == $transaction['ID_Parkeerplaats'] && $price['kenteken'] == $transaction['kenteken'] && $price['begintijd'] == $transaction['begintijd'])
+                            <td>{{$price['prijs']}}</td>
+                    @endif
+                @endforeach
                 <!-- <td>{/{$transaction->gemeentenaam}}</td>
                 <td>{/{$transaction->provincienaam}}</td>
-                <td>{/{$transaction->eindtijd}}</td>
                 <td>{/{$transaction->adres}}</td>
                 <td>{/{$transaction->postcode}}</td> -->
 
