@@ -1,56 +1,39 @@
 $(document).ready(function(){
 
-    var userid;
+    //checked welke class je moet gebruiken om te changen
 
-    $('#customer').on('change', function() {
-        $("#endsessionbutton").empty();
-        userid = this.value;
-        vmiddelnull();
-    });
-
-    const userarray = [
-
-    ];
-
-
-
-    var test;
 
     vmiddelnull();
 
+
+    // checked welke gebruiker nog een transactie heeft waar eindtijd null is
     function vmiddelnull(){
         $.ajax({
             type: "GET",
             url: "/end-session",
             dataType: "json",
             success: function(response){
-                $.each(response.transactions, function (key, item) {
-                    if(item.eindtijd == null){
-                        checknumberboards(item);
-                    }
-                });
-            }
+                $('#numberboards').on('change', function() {
+                    $("#endsessionbutton").empty();
+                    kenteken = this.value;
+                    $.each(response.transactions, function (key, item) {
+                        if(item.kenteken == kenteken){
 
         })
     }
     function checknumberboards(nullkenteken){
 
+                            $('#endsessionbutton').append(`
+                                <input name="eindtijd" type="hidden" value="`+new Date()+`">
+                                <button class = "btn btn-primary ">Eindig sessie</button>
+                            `)
 
-        $.ajax({
-            type: "GET",
-            url: "/fetch-numberboards",
-            dataType: "json",
-            success: function(response){
-                $.each(response.numberboards, function (key, item) {
-                    if(item.kenteken == nullkenteken.kenteken){
-                        userarray.push({
-                            'kenteken':item.kenteken,
-                            'userid':item.ID_Klant,
-                        });
-                    }
+                        }
+                    });
                 });
-                console.log(userarray);
+
             }
+
         })
     }
 

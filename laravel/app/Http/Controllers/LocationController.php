@@ -31,11 +31,17 @@ class LocationController extends Controller
 
     public function endsession(){
 
-        $transactions = Transactions::all();
-
+        $opentransactions = $this->checknumberboard();
         return response()->json([
-            'transactions' => $transactions,
+            'transactions' => $opentransactions,
         ]);
+
+
+    }
+
+    public function checknumberboard(){
+
+        return Transactions::whereNull('eindtijd')->get();
 
     }
     public function fetchnumberboards(){

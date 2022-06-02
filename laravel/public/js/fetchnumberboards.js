@@ -13,8 +13,8 @@ $(document).ready(function(){
             dataType: "json",
             success: function(response){
                 $('#numberboards').append(`
-                <option value="" disabled selected>Selecteer Nummerbord</option>
-                `)
+                    <option value="" disabled selected>Selecteer Nummerbord</option>
+                    `)
                 $.each(response.numberboards, function (key, item) {
 
                     if(item.ID_Klant == recieved){
