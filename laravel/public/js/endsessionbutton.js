@@ -19,22 +19,16 @@ $(document).ready(function(){
                     $.each(response.transactions, function (key, item) {
                         if(item.kenteken == kenteken){
 
-        })
-    }
-    function checknumberboards(nullkenteken){
-
                             $('#endsessionbutton').append(`
                                 <input name="eindtijd" type="hidden" value="`+new Date()+`">
                                 <button class = "btn btn-primary ">Eindig sessie</button>
                             `)
-
                         }
                     });
+
                 });
-
             }
-
         })
     }
-
 });
+
