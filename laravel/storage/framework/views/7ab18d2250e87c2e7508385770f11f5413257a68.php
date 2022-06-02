@@ -47,12 +47,15 @@
                         </select>
                     <label for="numberboards" >Nummerborden</label>
                         <select id="numberboards" name="kenteken">
+                            <option value="" disabled selected>Selecteer Nummerbord</option>
                         </select>
+
 
                     <div class="" id="endsessionbutton">
 
-
                     </div>
+
+
 
                     <div id="map"></div>
                 </form>
@@ -69,24 +72,8 @@
 
 <?php $__currentLoopData = $locations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $location): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
     <script>
-        L.marker([<?php echo e($location->latitude); ?>, <?php echo e($location->longitude); ?>]).addTo(map)
-        .bindPopup(
-            `
-            <div class="row">
-                <p class="col-xs-1 center-block text-center">
-                    Adres: <?php echo e($location->adres); ?><br>
-                    Postcode: <?php echo e($location->postcode); ?><br>
-                    Aantal plekken: <?php echo e($location->aantalplekken); ?><br>
-                </p>
-                <div class="col-xs-1 center-block text-center">
-                    <input type="hidden" name="ID_Parkeerplaats" value="<?php echo e($location->ID_Parkeerplaats); ?>">
-                    <input type="submit" class="btn btn-primary" value="Start parkeren">
-
-                </div>
-            </div>
-            `
-            )
-        .openPopup();
+        BuildMapMarker('<?php echo e($location->adres); ?>', '<?php echo e($location->postcode); ?>', '<?php echo e($location->aantalplekken); ?>',
+        '<?php echo e($location->ID_Parkeerplaats); ?>', '<?php echo e($location->latitude); ?>', '<?php echo e($location->longitude); ?>');
     </script>
 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 

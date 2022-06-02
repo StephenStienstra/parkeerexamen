@@ -25,7 +25,6 @@ class ParkingSession extends FormRequest
     {
         return [
             'kenteken' => 'required',
-            'ID_Parkeerplaats' => 'required'
         ];
     }
 }

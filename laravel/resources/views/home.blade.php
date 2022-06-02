@@ -72,24 +72,8 @@
 
 @foreach ($locations as $location)
     <script>
-        L.marker([{{$location->latitude}}, {{$location->longitude}}]).addTo(map)
-        .bindPopup(
-            `
-            <div class="row">
-                <p class="col-xs-1 center-block text-center">
-                    Adres: {{ $location->adres}}<br>
-                    Postcode: {{ $location->postcode}}<br>
-                    Aantal plekken: {{ $location->aantalplekken}}<br>
-                </p>
-                <div class="col-xs-1 center-block text-center">
-                    <input type="hidden" name="ID_Parkeerplaats" value="{{$location->ID_Parkeerplaats}}">
-                    <input type="submit" class="btn btn-primary" value="Start parkeren">
-
-                </div>
-            </div>
-            `
-            )
-        .openPopup();
+        BuildMapMarker('{{ $location->adres}}', '{{ $location->postcode}}', '{{ $location->aantalplekken}}',
+        '{{$location->ID_Parkeerplaats}}', '{{$location->latitude}}', '{{$location->longitude}}');
     </script>
 @endforeach
 
