@@ -1,32 +1,37 @@
 $(document).ready(function(){
 
-    $('#customer').on('change', function() {
+    //checked welke class je moet gebruiken om te changen
 
-    });
 
-    endsession();
+    vmiddelnull();
 
-    function endsession(){
 
+    // checked welke gebruiker nog een transactie heeft waar eindtijd null is
+    function vmiddelnull(){
         $.ajax({
             type: "GET",
             url: "/end-session",
             dataType: "json",
             success: function(response){
-                $.each(response.transactions, function (key, item) {
-                    if(item.eindtijd == null){
-                        console.log(item);
-                    }
+                $('#numberboards').on('change', function() {
+                    $("#endsessionbutton").empty();
+                    kenteken = this.value;
+                    $.each(response.transactions, function (key, item) {
+                        if(item.kenteken == kenteken){
 
 
-                    // if(item.eindtijd == isNull){
-                    //     return(response.transactions);
-                    // }
+                            $('#endsessionbutton').append(`
+                                <input name="eindtijd" type="hidden" value="`+new Date()+`">
+                                <button class = "btn btn-primary ">Eindig sessie</button>
+                            `)
 
+                        }
+                    });
                 });
-            }
-        })
 
+            }
+
+        })
     }
 
 });
