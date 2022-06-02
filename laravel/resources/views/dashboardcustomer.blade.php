@@ -2,7 +2,6 @@
 
 @section('content')
 
-
     <label for="customer">Selecteer de klant:</label>
 
 
@@ -36,7 +35,7 @@
                 <td>{{$transaction->plaatsnaam}}</td>
                 <td>{{$transaction->begintijd}}</td>
                 <td>{{$transaction->prijs}}</td>
-                <!-- <td>{{$transaction->gemeentenaam}}</td>
+                <!-- <td>{/{$transaction->gemeentenaam}}</td>
                 <td>{/{$transaction->provincienaam}}</td>
                 <td>{/{$transaction->eindtijd}}</td>
                 <td>{/{$transaction->adres}}</td>

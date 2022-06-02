@@ -1,27 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
-    <style>
-        thead{
-            font-weight: bold;
-        }
-        tr{
-            border-top: 1px solid black;
-            border-bottom: 1px solid black;
-            height: 30px;
-        }
-        .trans:hover{
-                background-color: grey;
-            }
 
-        .transinfo{
-        display: block;
-        clear:both;
-        }
-    </style>
+    <label for="customer">Selecteer de gemeente:</label>
 
 
-    <table class="sortable" style="width: 95%;" border="1px black" align="center">
+    <select onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"  name="communtiy" id="communtiy">
+        <option value="" disabled selected>Selecteer gemeente</option>
+        @foreach ($communities as $community)
+            <option id="{{$community->ID_Beheerder}}" value="./{{$community->ID_Beheerder}}"><a href="./{{$community->ID_Beheerder}}">{{$community->beheerdernaam}}</a></option>
+        @endforeach
+    </select>
+
+    <br>
+    <br>
+
+    <table id="transactions" class="display">
         <thead>
             <tr>
                 <th>beheerder</th>
@@ -38,7 +32,7 @@
         </thead>
         </tbody>
         @foreach ($transactions as $transaction)
-            <tr class="trans">
+            <tr class>
                 <td>{{$transaction->beheerdernaam}}</td>
                 <td>{{$transaction->parkeerplaatsnaam}}</td>
                 <td>{{$transaction->adres}}</td>
@@ -53,5 +47,11 @@
         @endforeach
         </tbody>
     </table>
+
+    <script>
+        $(document).ready( function () {
+            $('#transactions').DataTable();
+        });
+    </script>
 
 @endsection

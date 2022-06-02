@@ -35,4 +35,5 @@ Route::get('/end-session', [LocationController::class, 'endsession']);
 
 Route::get('/dashboardcustomer/select',[LoadTransactionController::class, 'getCustomers']);
 Route::get('/dashboardcustomer/{klantID}',[LoadTransactionController::class, 'RecieveCustomerTransactions']);
-Route::get('/dashboardgoverment',[LoadTransactionController::class, 'RecieveGovermentTransactions']);
+Route::get('/dashboardgoverment/select',[LoadTransactionController::class, 'getGoverment']);
+Route::get('/dashboardgoverment/{govermentID}',[LoadTransactionController::class, 'RecieveGovermentTransactions']);

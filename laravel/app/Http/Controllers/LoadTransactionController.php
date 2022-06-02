@@ -7,7 +7,7 @@ use App\Http\Requests\CheckCustomer;
 use Illuminate\Http\Request;
 
 use App\Models\Transactions;
-use App\Models\Communities;
+use App\Models\GovermentAdmin;
 use App\Models\Customer;
 
 class LoadTransactionController extends Controller
@@ -18,13 +18,25 @@ class LoadTransactionController extends Controller
         $this->middleware('auth');
     }
 
+
+    // Function to load in the customers into the select option on the dashboard
     public function getCustomers(){
 
-        $transactions = Transactions::all();
+        $transactions = array();
         $customers = Customer::all();
         return view('dashboardcustomer', compact(['transactions', 'customers']));
 
     }
+
+    // Function to load in the communities into the select option on the dashboard
+    public function getGoverment(){
+
+        $transactions = array();
+        $communities = GovermentAdmin::all();
+        return view('dashboardgoverment', compact(['transactions', 'communities']));
+
+    }
+
 
     // Function to insert the customer ID into the SQL-code and send the results to the dashboard
     public function RecieveCustomerTransactions($customerID){
@@ -36,19 +48,18 @@ class LoadTransactionController extends Controller
     }
 
     // Function to insert the goverment ID into the SQL-code and send the results to the dashboard
-    public function RecieveGovermentTransactions(){
+    public function RecieveGovermentTransactions($govermentID){
 
-        $govermentID = 1;
-        $communities = Communities::all();
+        $communities = GovermentAdmin::all();
         $transactions = $this->indexgoverment($govermentID);
         return view('dashboardgoverment', compact(['transactions', 'communities']));
 
     }
 
-        // TEST Function to insert a dynamic ID into the SQL-code and send the results to the dashboard TEST
-        public function RecieveIDTransactions(){
 
-            $ID = 2040;
+        // TEST Function to insert a dynamic ID into the SQL-code and send the results to the dashboard TEST
+        public function RecieveIDTransactions($ID){
+
             $role = 'customer';
             switch ($role) {
                 case 'customer':
@@ -57,7 +68,7 @@ class LoadTransactionController extends Controller
                     return view('dashboardcustomer', compact(['transactions', 'customers']));
                     break;
                 case 'goverment':
-                    $communities = Communities::all();
+                    $communities = GovermentAdmin::all();
                     $transactions = $this->indexgoverment($ID);
                     return view('dashboardgoverment', compact(['transactions', 'communities']));
                     break;
@@ -66,6 +77,7 @@ class LoadTransactionController extends Controller
             }
         }
         // TEST
+
 
 
 
