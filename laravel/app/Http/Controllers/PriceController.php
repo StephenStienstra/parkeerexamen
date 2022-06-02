@@ -59,8 +59,12 @@ class PriceController extends Controller
 
     public function GetTimeSpan($transactions, $counter)
     {
-
-        return (strtotime($transactions[$counter]->eindtijd) - strtotime($transactions[$counter]->begintijd)) / 60;
+        if(strtotime($transactions[$counter]->eindtijd) == NULL){
+            $transactions[$counter]->eindtijd = 'Transactie lopend: '.Carbon::now();
+            return (strtotime(Carbon::now()) - strtotime($transactions[$counter]->begintijd)) / 60;
+        }else{
+            return (strtotime($transactions[$counter]->eindtijd) - strtotime($transactions[$counter]->begintijd)) / 60;
+        }
 
     }
 
