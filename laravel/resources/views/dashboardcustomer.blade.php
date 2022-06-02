@@ -15,7 +15,7 @@
     <br>
     <br>
 
-    <table id="transactions" class="display" style="width:95%">
+    <table id="transactions" class="display">
         <thead>
             <tr>
                 <th>Klantnaam</th>
