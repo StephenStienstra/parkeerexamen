@@ -49,12 +49,15 @@
                         </select>
                     <label for="numberboards" >Nummerborden</label>
                         <select id="numberboards" name="kenteken">
+                            <option value="" disabled selected>Selecteer Nummerbord</option>
                         </select>
+
 
                     <div class="" id="endsessionbutton">
 
-
                     </div>
+
+
 
                     <div id="map"></div>
                 </form>
