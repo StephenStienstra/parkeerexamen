@@ -15,6 +15,8 @@
     <script src="<?php echo e(asset('js/jquery.js')); ?>"></script>
     <script src="<?php echo e(asset('js/fetchnumberboards.js')); ?>"></script>
     <script src="<?php echo e(asset('js/endsessionbutton.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/checknumberboard.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/buildmarkers.js')); ?>"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">

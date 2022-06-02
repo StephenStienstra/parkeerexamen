@@ -1,57 +1,60 @@
 @extends('layouts.app')
 
 @section('content')
-   <style>
-       #map{
-           height:80vh;
-           width:100%;
-       }
-    </style>
 
-    <form method="POST" action="/dashboardcustomer">@csrf
-        <label for="customer">Selecteer welke klant u bent.</label>
-           <select id="customer" name="customer">
-                <option value="" disabled selected>Selecteer klant</option>
-                @foreach($transactions as $customer)
-                    <option id="{{$customer->ID_Klant}}" value="{{$customer->ID_Klant}}">{{$customer->klantnaam}}</option>
-                @endforeach
-            </select>
-            <label for="numberboards" >Nummerborden</label>
-            <select id="numberboards" name="numberboard"></select>
+    <label for="customer">Selecteer de klant:</label>
 
-    </form>
 
-    <table>
-        <tr>
-            <th>
-                <td>klantnaam</td>
-                <td>Kenteken</td>
-                <td>parkeerplaats</td>
-                <td>adres</td>
-                <td>postcode</td>
-                <td>plaatsnaam</td>
-                <td>gemeentenaam</td>
-                <td>provincienaam</td>
-                <td>Begintijd</td>
-                <td>Eindtijd</td>
-                <td>prijs</td>
-            </th>
-        </tr>
+    <select onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"  name="customer" id="customer">
+        <option value="" disabled selected>Selecteer klant</option>
+        @foreach ($customers as $customer)
+            <option id="{{$customer->ID_Klant}}" value="./{{$customer->ID_Klant}}"><a href="./{{$customer->ID_Klant}}">{{$customer->klantnaam}}</a></option>
+        @endforeach
+    </select>
+
+    <br>
+    <br>
+
+    <table id="transactions" class="display">
+        <thead>
+            <tr>
+                <th>Klantnaam</th>
+                <th>parkeerplaats</th>
+                <th>Kenteken</th>
+                <th>plaatsnaam</th>
+                <th>Begintijd</th>
+                <th>eindtijd</th>
+                <th>prijs</th>
+            </tr>
+        </thead>
+        <tbody>
         @foreach ($transactions as $transaction)
             <tr>
                 <td>{{$transaction->klantnaam}}</td>
-                <td>{{$transaction->kenteken}}</td>
                 <td>{{$transaction->parkeerplaatsnaam}}</td>
-                <td>{{$transaction->adres}}</td>
-                <td>{{$transaction->postcode}}</td>
+                <td>{{$transaction->kenteken}}</td>
                 <td>{{$transaction->plaatsnaam}}</td>
-                <td>{{$transaction->gemeentenaam}}</td>
-                <td>{{$transaction->provincienaam}}</td>
                 <td>{{$transaction->begintijd}}</td>
                 <td>{{$transaction->eindtijd}}</td>
-                <td>{{$transaction->prijs}}</td>
+                @foreach ($prices as $price)
+                    @if ($price['ID_Parkeerplaats'] == $transaction['ID_Parkeerplaats'] && $price['kenteken'] == $transaction['kenteken'] && $price['begintijd'] == $transaction['begintijd'])
+                            <td>{{$price['prijs']}}</td>
+                    @endif
+                @endforeach
+                <!-- <td>{/{$transaction->gemeentenaam}}</td>
+                <td>{/{$transaction->provincienaam}}</td>
+                <td>{/{$transaction->adres}}</td>
+                <td>{/{$transaction->postcode}}</td> -->
+
             </tr>
         @endforeach
+        </tbody>
     </table>
+
+    <script>
+        $(document).ready( function () {
+            $('#transactions').DataTable();
+        });
+    </script>
 
 @endsection

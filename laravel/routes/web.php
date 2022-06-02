@@ -26,8 +26,6 @@ Route::get('/', [LocationController::class, 'index']);
 Route::get('/home', [LocationController::class, 'index']);
 Route::POST('/home',[ParkingController::class, 'HandleReservation']);
 Route::get('/dashboard',[LoadTransactionController::class, 'index']);
-Route::get('/dashboardcustomer',[LoadTransactionController::class, 'indexcustomer']);
-Route::get('/dashboardgoverment',[LoadTransactionController::class, 'indexgoverment']);
 Route::get('/pricetest', [PriceController::class, 'index']);
 
 //Ajax calls
@@ -35,3 +33,9 @@ Route::get('/pricetest', [PriceController::class, 'index']);
 Route::get('/fetch-numberboards', [LocationController::class, 'fetchnumberboards']);
 Route::get('/end-session', [LocationController::class, 'endsession']);
 
+// Routes for the transactions on the dashboards
+Route::get('/dashboard',[LoadTransactionController::class, 'GetAllTransactions']);
+Route::get('/dashboardcustomer/select',[LoadTransactionController::class, 'GetCustomers']);
+Route::get('/dashboardcustomer/{klantID}',[LoadTransactionController::class, 'RecieveCustomerTransactions']);
+Route::get('/dashboardgoverment/select',[LoadTransactionController::class, 'GetGoverment']);
+Route::get('/dashboardgoverment/{govermentID}',[LoadTransactionController::class, 'RecieveGovermentTransactions']);
