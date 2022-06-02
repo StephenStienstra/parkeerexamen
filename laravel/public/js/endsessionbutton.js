@@ -8,7 +8,14 @@ $(document).ready(function(){
         vmiddelnull();
     });
 
-    var test = "test";
+    const userarray = [
+
+    ];
+
+
+
+    var test;
+
     vmiddelnull();
 
     function vmiddelnull(){
@@ -28,6 +35,7 @@ $(document).ready(function(){
     }
     function checknumberboards(nullkenteken){
 
+
         $.ajax({
             type: "GET",
             url: "/fetch-numberboards",
@@ -35,11 +43,13 @@ $(document).ready(function(){
             success: function(response){
                 $.each(response.numberboards, function (key, item) {
                     if(item.kenteken == nullkenteken.kenteken){
-                        console.log(item);
-
-
+                        userarray.push({
+                            'kenteken':item.kenteken,
+                            'userid':item.ID_Klant,
+                        });
                     }
                 });
+                console.log(userarray);
             }
         })
     }
