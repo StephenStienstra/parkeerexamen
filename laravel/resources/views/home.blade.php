@@ -38,6 +38,7 @@
                 @endif
 
                 <form method="POST" action="/home">@csrf
+                    <input type="hidden" name="ID_Parkeerplaats" value="0">
                     <label for="customer">Selecteer welke klant u bent.</label>
                         <select id="customer" name="ID_Klant">
                             <option value="" disabled selected>Selecteer klant</option>
