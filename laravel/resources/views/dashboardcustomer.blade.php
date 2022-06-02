@@ -1,19 +1,26 @@
 @extends('layouts.app')
 
+
 @section('content')
    <style>
-       #map{
-           height:80vh;
-           width:100%;
+       thead{
+           font-weight: bold;
        }
+        tr{
+            border-top: 1px solid black;
+            border-bottom: 1px solid black;
+            height: 30px;
+        }
+        .trans:hover{
+                background-color: grey;
+            }
+
+        .transinfo{
+        display: block;
+        clear:both;
+        }
     </style>
 
-
-    @if ($klantID = NULL)
-        {{$klantID}}
-    @else
-        {{$klantID}}
-    @endif
     <!-- Vind klant ID Modal -->
     <div class="modal fade" id="KlantIDModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
        <div class="modal-dialog">
@@ -61,82 +68,76 @@
                     <option id="{/{$customer->ID_Klant}}" value="{/{$customer->ID_Klant}}">{/{$customer->klantnaam}}</option>
                 @/endforeach
     </form>-->
-    <table>
-        <tr>
-            <th>
-                <td>klantnaam</td>
-                <td>Kenteken</td>
-                <td>parkeerplaats</td>
-                <td>adres</td>
-                <td>postcode</td>
-                <td>plaatsnaam</td>
-                <td>gemeentenaam</td>
-                <td>provincienaam</td>
-                <td>Begintijd</td>
-                <td>Eindtijd</td>
-                <td>prijs</td>
-            </th>
-        </tr>
-        @if ($transactions == NULL)
-            <tr><td>is Leeg</td></tr>
+    <table class="sortable" style="width: 95%;" border="1px black" align="center">
+        <thead>
+            <tr>
+                <th>parkeerplaats</th>
+                <th>Kenteken</th>
+                <th>plaatsnaam</th>
+                <th>Begintijd</th>
+                <th>prijs</th>
+            </tr>
+        </thead>
+        @if ($transactions === NULL)
+            <p>is Leeg</p>
         @else
+        <tbody>
         @foreach ($transactions as $transaction)
-            <tr onclick="showTransaction(this)">
-                <td>{{$transaction->klantnaam}}</td>
-                <td>{{$transaction->kenteken}}</td>
+            <tr class="trans" onclick="showTransaction(this)">
                 <td>{{$transaction->parkeerplaatsnaam}}</td>
-                <td>{{$transaction->adres}}</td>
-                <td>{{$transaction->postcode}}</td>
+                <td>{{$transaction->kenteken}}</td>
                 <td>{{$transaction->plaatsnaam}}</td>
-                <td>{{$transaction->gemeentenaam}}</td>
-                <td>{{$transaction->provincienaam}}</td>
                 <td>{{$transaction->begintijd}}</td>
-                <td>{{$transaction->eindtijd}}</td>
                 <td>{{$transaction->prijs}}</td>
+                <td hidden class="transinfo">{{$transaction->gemeentenaam}}</td>
+                <td hidden class="transinfo">{{$transaction->provincienaam}}</td>
+                <td hidden class="transinfo">{{$transaction->eindtijd}}</td>
+                <td hidden class="transinfo">{{$transaction->adres}}</td>
+                <td hidden class="transinfo">{{$transaction->postcode}}</td>
+
+                <!--<td hidden>{/{$transaction->klantnaam}}</td>-->
             </tr>
         @endforeach
         @endif
+        </tbody>
     </table>
 
     <script>
         function showTransaction(x) {
             $index = x.rowIndex;
             alert("klantnaam: " + $transactions[$index]["ID_Parkeerplaats"]);
+
         }
 
 
-        // functie om de gekozen Klant ID door te sturen.
-        $(document).ready(function(){
+    // functie om de gekozen Klant ID door te sturen.
+    $(document).ready(function(){
 
-            // Klant ID wordt uit de Modal gehaald, in een Data variable gezet
-            $(document).on('click', '.get_klantid', function (e){
-                e.preventDefault();
-                console.log("test1");
-                var data = {
-                    'klantid': $('.klantid').val().toString()
+        // Klant ID wordt uit de Modal gehaald, in een Data variable gezet
+        $(document).on('click', '.get_klantid', function (){
+            console.log("test1");
+            var data = {
+                'klantid': $('.klantid').val().toString()
+            }
+            console.log(data);
+
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-Token' : $('meta[name="_token"]').attr('content')
                 }
-                console.log(data);
-
-                // Token voor verbinding
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-
-                // Data voor de Klant ID wordt in een ajax gegooid
-                $.ajax({
-                    type: "POST",
-                    url: "/dashboardcustomer",
-                    data: data,
-                    dataType: "json",
-                });
-                console.log("test3");
-
             });
 
-        });
+            // Data voor de Klant ID wordt in een ajax gegooid
+            $.ajax({
+                type: "POST",
+                url: "/dashboardcustomer",
+                data: data,
+            });
+            console.log("test3");
 
+        });
+    });
     </script>
 
 @endsection

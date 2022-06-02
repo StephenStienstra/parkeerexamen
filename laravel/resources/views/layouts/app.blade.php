@@ -32,6 +32,9 @@
    integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
    crossorigin=""></script>
 
+   <!-- SortTable script -->
+   <script src="sorttable.js"></script>
+
 </head>
 <body>
     <div id="app">

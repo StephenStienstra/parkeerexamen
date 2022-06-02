@@ -26,8 +26,6 @@ Route::get('/', [LocationController::class, 'index']);
 Route::get('/home', [LocationController::class, 'index']);
 Route::POST('/home',[ParkingController::class, 'HandleReservation']);
 Route::get('/dashboard',[LoadTransactionController::class, 'index']);
-Route::get('/dashboardcustomer',[LoadTransactionController::class, 'indexcustomer']);
-Route::get('/dashboardgoverment',[LoadTransactionController::class, 'indexgoverment']);
 Route::get('/pricetest', [PriceController::class, 'index']);
 
 //Ajax calls
@@ -35,4 +33,5 @@ Route::get('/pricetest', [PriceController::class, 'index']);
 Route::get('/fetch-numberboards', [LocationController::class, 'fetchnumberboards']);
 Route::get('/end-session', [LocationController::class, 'endsession']);
 
-Route::POST('/dashboardcustomer',[LoadTransactionController::class, 'RecieveCustomerID']);
+Route::get('/dashboardcustomer',[LoadTransactionController::class, 'RecieveCustomerTransactions']);
+Route::get('/dashboardgoverment',[LoadTransactionController::class, 'RecieveGovermentTransactions']);
