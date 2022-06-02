@@ -10,7 +10,7 @@ function BuildMapMarker(adres, postcode, aantalplekken, ID_Parkeerplaats, latitu
             </p>
             <div class="col-xs-1 center-block text-center">
                 <input type="hidden" name="ID_Parkeerplaats" value="`+ID_Parkeerplaats+`">
-                <input type="submit" class="btn btn-primary" value="Start parkeren">
+                <input name ="start" type="submit" class="btn btn-primary" value="Start parkeren">
 
             </div>
         </div>
