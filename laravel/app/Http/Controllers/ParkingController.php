@@ -16,7 +16,6 @@ class ParkingController extends Controller
             if(isset($request['start'])){
                 return redirect('/home')->with('message', 'Eindig eerst uw huidige sessie');
             }
-
                 $sql = "UPDATE transacties SET eindtijd = CURRENT_TIMESTAMP() WHERE kenteken = ? AND isnull(eindtijd)";
                 DB::update($sql, [$request['kenteken']]);
                 return redirect('/home')->with('message', 'transactie is gestopt');
